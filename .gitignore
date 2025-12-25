@@ -11,3 +11,6 @@ tools/
 **/output/
 **/build/
 DEVLOG.md
+.obsidian/
+docs/.obsidian/
+*.bkp
