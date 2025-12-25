@@ -1,0 +1,8 @@
+syntax = "proto3"; 
+
+message SensorData {
+	string device_id = 1; 
+	float temperature = 2;
+	float humidity = 3;
+	uint32 uptime_ms = 4; 
+}
