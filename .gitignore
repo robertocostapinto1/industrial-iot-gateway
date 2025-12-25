@@ -10,3 +10,4 @@ sdkconfig
 tools/
 **/output/
 **/build/
+DEVLOG.md

@@ -19,3 +19,8 @@ This project implements a secure, high-performance industrial IoT pipeline. It u
 - `/proto`: Shared Protobuf schemas (The Data Contract)
 - `/security`: Root CA and Infrastructure keys
 - `/docs`: Detailed implementation guides and study notes
+
+## Engineering Milestones
+- **Dec 2025:** Established Private PKI and signed Gateway certificates.
+- **Dec 2025:** Validated RAII-based hardware drivers on ESP32 silicon.
+- **Dec 2025:** Achieved 75% telemetry compression using Nanopb serialization.
