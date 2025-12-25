@@ -1,6 +1,6 @@
 # Heterogeneous Industrial IoT Gateway
 **An End-to-End Secure Telemetry System (Edge-to-Cloud)**
-![[master-architecture.png]]
+![System Architecture](docs/diagrams/master-architecture.png)
 
 ## Executive Summary
 This project implements a secure, high-performance industrial IoT pipeline. It utilizes a **Heterogeneous Architecture** consisting of an **ESP32 Edge Node** (C++17/RTOS) communicating over an encrypted **MQTTS** tunnel to a custom **Linux Gateway** (Buildroot/AArch64).
