@@ -1,0 +1,12 @@
+build/
+output/
+*.o
+*.d
+*.bin
+*.elf
+sdkconfig
+.idea/
+.vscode/
+tools/
+**/output/
+**/build/
