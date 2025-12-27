@@ -17,4 +17,8 @@ docs/.obsidian/
 docs/diagrams/diagrams.drawio
 docs/diagrams/mermaid/
 docs/study-notes/
-gateway-os/buildroot/
+gateway-os/buildroot/*
+!gateway-os/buildroot/board/
+!gateway-os/buildroot/board/industrial-gateway/
+!gateway-os/buildroot/rpi4_industrial_gateway_defconfig
+gateway-service/build/
