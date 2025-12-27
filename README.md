@@ -1,5 +1,11 @@
 # Heterogeneous Industrial IoT Gateway
 **An End-to-End Secure Telemetry System (Edge-to-Cloud)**
+![C++](https://img.shields.io/badge/C%2B%2B-17%2F20-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-ESP32%20%7C%20RPi4-lightgrey.svg)
+![OS](https://img.shields.io/badge/OS-Buildroot%20%7C%20FreeRTOS-green.svg)
+![Security](https://img.shields.io/badge/Security-MQTTS%20%7C%20TLS%201.3-red.svg)
+![Build](https://img.shields.io/badge/Build-CMake%20%7C%20Ninja-orange.svg)
+
 ![System Architecture](docs/diagrams/master-architecture.png)
 
 ## Executive Summary
@@ -20,7 +26,22 @@ This project implements a secure, high-performance industrial IoT pipeline. It u
 - [/security](security) : Private PKI and Infrastructure keys
 - [/docs](docs) : [Gateway Service Design](docs/phase-3-gateway-service.md)
 
+## Getting Started
+
+### Prerequisites
+- **Host:** Ubuntu 24.04 LTS
+- **Toolchains:** ESP-IDF v5.x+, Buildroot 2024.02 LTS
+- **Dependencies:** `cmake`, `ninja`, `ccache`, `python3-protobuf`
+
+### Build Instructions (Edge Tier)
+1. Navigate to `firmware/esp32/esp32-sensor-node`
+2. Run `idf.py build`
+3. Flash via `idf.py -p [PORT] flash monitor`
+
 ## Engineering Milestones
 - **Dec 2025:** Established Private PKI and signed Gateway certificates.
 - **Dec 2025:** Validated RAII-based hardware drivers on ESP32 silicon.
 - **Dec 2025:** Achieved 75% telemetry compression using Nanopb serialization.
+
+## Security Notice
+This repository contains a **Development-only Private PKI**. The Root CA keys included in the `/security` folder are provided for architectural demonstration and build reproducibility. In a production environment, these keys would be managed by a Hardware Security Module (HSM) or a secure Vault and excluded from version control.
