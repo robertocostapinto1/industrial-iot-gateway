@@ -10,8 +10,8 @@ std::vector<uint8_t> ProtobufSerializer::serialize_sensor_data(const std::string
                                                               float hum, 
                                                               uint32_t uptime) {
     // 1. Initialize struct (Exactly matching the Message Name)
-    SensorData message = SensorData_init_default;
-    
+    industrial_SensorData message = industrial_SensorData_init_default;
+
     // 2. Fill data (Names must match the .proto file fields exactly)
     std::snprintf(message.device_id, sizeof(message.device_id), "%s", id.c_str());
     message.temperature = temp;
@@ -22,7 +22,7 @@ std::vector<uint8_t> ProtobufSerializer::serialize_sensor_data(const std::string
     uint8_t buffer[128];
     pb_ostream_t stream = pb_ostream_from_buffer(buffer, sizeof(buffer));
 
-    if (!pb_encode(&stream, SensorData_fields, &message)) {
+    if (!pb_encode(&stream, industrial_SensorData_fields, &message)) {
         ESP_LOGE("PROTO", "Encoding failed!");
         return {};
     }

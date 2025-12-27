@@ -1,1 +1,2 @@
-SensorData.device_id  max_size:32
+# Use a wildcard to ensure the constraint is applied to any SensorData message
+*.SensorData.device_id  max_size:32
