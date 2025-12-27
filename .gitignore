@@ -14,3 +14,6 @@ DEVLOG.md
 .obsidian/
 docs/.obsidian/
 *.bkp
+docs/diagrams/diagrams.drawio
+docs/diagrams/mermaid/
+docs/study-notes/

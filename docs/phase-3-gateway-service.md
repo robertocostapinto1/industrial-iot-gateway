@@ -1,6 +1,6 @@
 ```markdown
 # Phase 3: Gateway Service Integration
-**Status:** 🚧 In Progress
+**Status:**  In Progress
 
 ## Objectives
 Bridge the gap between the Edge Tier ([ESP32](phase-2-edge.md)) and the Data Sinks using a high-performance C++ service.

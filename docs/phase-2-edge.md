@@ -1,7 +1,7 @@
 # Phase 2: Edge Node Firmware (C++17)
-**Status:** ✅ Validated | **Framework:** ESP-IDF v5.x+
+**Status:**  Validated | **Framework:** ESP-IDF v5.x+
 
-## Design Philosophy: [[concepts#RAII|RAII]]
+## Design Philosophy: concepts#RAII|RAII
 Peripherals are treated as scoped resources. This eliminates memory leaks and ensures hardware states (WiFi/MQTT) are deterministic.
 
 ### 1. Network Layer (WiFi Manager)
@@ -9,19 +9,19 @@ Peripherals are treated as scoped resources. This eliminates memory leaks and en
 - **Pattern:** Non-copyable Singleton (`= delete`).
 - **Safety:** Destructor guarantees `esp_wifi_deinit()`.
 
-### 2. Data Layer: [[concepts#Protobuf|Protobuf]]
+### 2. Data Layer: concepts#Protobuf|Protobuf
 - **Serialization:** Used binary format for minimal wireless air-time.
-- **Optimization:** Utilized `.options` files to enforce **Static Memory Allocation**, preventing [[concepts#Static vs Dynamic Allocation|heap fragmentation]].
+- **Optimization:** Utilized `.options` files to enforce **Static Memory Allocation**, preventing concepts#Static vs Dynamic Allocation|heap fragmentation.
 
-### 3. Transport Layer: [[security-pki|Secure MQTTS]]
+### 3. Transport Layer: security-pki|Secure MQTTS
 - **Encryption:** TLS 1.2/1.3 on Port 8883.
 - **Trust Model:** Embedded Root CA Certificate as a binary blob using CMake `EMBED_TXTFILES`.
 - **Dependency:** Integrated `espressif/mqtt` via the Managed Component Manager.
 
 ## Build System Mastery
-Implemented a **Two-Pass CMake** logic to automate Protobuf generation while satisfying the ESP-IDF component validation rules. See: [[concepts#Multi-Pass Build|Multi-Pass Explanation]].
+Implemented a **Two-Pass CMake** logic to automate Protobuf generation while satisfying the ESP-IDF component validation rules. See: concepts#Multi-Pass Build|Multi-Pass Explanation.
 
-## 🛠️ Build Engineering & Debugging
+##  Build Engineering & Debugging
 ### Hurdles Resolved
 1. **CMake Pass 1 vs Pass 2:** 
    - *Problem:* ESP-IDF failed to find generated Protobuf headers.

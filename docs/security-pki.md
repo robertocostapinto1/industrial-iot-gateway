@@ -1,5 +1,5 @@
 # Security Infrastructure: Private PKI
-**Status:** 🔒 Established
+**Status:**  Established
 
 ## The "Chain of Trust" Model
 In this project, we act as our own **Certificate Authority (CA)**. This is the industrial standard for internal gateway traffic.

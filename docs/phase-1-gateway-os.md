@@ -1,5 +1,5 @@
 # Phase 1: Gateway OS Infrastructure
-**Status:** ✅ Validated | **Core Tool:** [[cross-compilation|Buildroot]]
+**Status:**  Validated | **Core Tool:** cross-compilation|Buildroot
 
 ## Objective
 Build a minimalist, secure, and deterministic Linux distribution for the Raspberry Pi 4 to act as an Industrial Gateway. 
@@ -12,12 +12,12 @@ Build a minimalist, secure, and deterministic Linux distribution for the Raspber
 | **Architecture** | AArch64 | Maximizes RPi4 hardware performance for high-throughput data ingestion. |
 
 ## Middleware Stack
-- **Mosquitto:** Configured as the secure MQTT broker. See: [[phase-3-gateway-service#Secure Broker|Secure Configuration]].
+- **Mosquitto:** Configured as the secure MQTT broker. See: phase-3-gateway-service#Secure Broker|Secure Configuration.
 - **BlueZ 5.x:** Integrated for future BLE edge-node expansion.
 - **Protobuf-C++:** Ingests binary packets from the Edge Tier.
 
 ## Hardware Integration
-The system relies on the [[linux-boot-flow|Raspberry Pi 4 Boot Sequence]] to load the custom kernel and mount the RootFS.
+The system relies on the linux-boot-flow|Raspberry Pi 4 Boot Sequence to load the custom kernel and mount the RootFS.
 
 ## Host Optimization
 - **CCache:** 50GB global cache implemented to reduce iterative build times by 80%.
