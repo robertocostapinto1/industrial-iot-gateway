@@ -1,10 +1,11 @@
 # Heterogeneous Industrial IoT Gateway
-**An End-to-End Secure Telemetry System (Edge-to-Cloud)**
 ![C++](https://img.shields.io/badge/C%2B%2B-17%2F20-blue.svg)
 ![Platform](https://img.shields.io/badge/Platform-ESP32%20%7C%20RPi4-lightgrey.svg)
 ![OS](https://img.shields.io/badge/OS-Buildroot%20%7C%20FreeRTOS-green.svg)
 ![Security](https://img.shields.io/badge/Security-MQTTS%20%7C%20TLS%201.3-red.svg)
 ![Build](https://img.shields.io/badge/Build-CMake%20%7C%20Ninja-orange.svg)
+
+**An End-to-End Secure Telemetry System (Edge-to-Cloud)**
 
 ![System Architecture](docs/diagrams/master-architecture.png)
 
