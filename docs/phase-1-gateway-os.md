@@ -12,7 +12,7 @@ Build a minimalist, secure, and deterministic Linux distribution for the Raspber
 | **Architecture** | AArch64 | Maximizes RPi4 hardware performance for high-throughput data ingestion. |
 
 ## Middleware Stack
-- **Mosquitto:** Configured as the secure MQTT broker. See: phase-3-gateway-service#Secure Broker|Secure Configuration.
+- **Mosquitto:** Configured as the secure MQTT broker. See: phase-3-gateway-service#Secure Broker|[Secure Configuration](phase-3-gateway-service.md).
 - **BlueZ 5.x:** Integrated for future BLE edge-node expansion.
 - **Protobuf-C++:** Ingests binary packets from the Edge Tier.
 

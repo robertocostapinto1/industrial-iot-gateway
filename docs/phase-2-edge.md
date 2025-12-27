@@ -13,7 +13,7 @@ Peripherals are treated as scoped resources. This eliminates memory leaks and en
 - **Serialization:** Used binary format for minimal wireless air-time.
 - **Optimization:** Utilized `.options` files to enforce **Static Memory Allocation**, preventing concepts#Static vs Dynamic Allocation|heap fragmentation.
 
-### 3. Transport Layer: security-pki|Secure MQTTS
+### 3. Transport Layer: security-pki|[Secure MQTTS](security-pki.md)
 - **Encryption:** TLS 1.2/1.3 on Port 8883.
 - **Trust Model:** Embedded Root CA Certificate as a binary blob using CMake `EMBED_TXTFILES`.
 - **Dependency:** Integrated `espressif/mqtt` via the Managed Component Manager.

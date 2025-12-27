@@ -14,11 +14,11 @@ This project implements a secure, high-performance industrial IoT pipeline. It u
 ---
 
 ## Project Structure
-- `/firmware`: ESP32-sensor-node (Phase 2)
-- `/gateway`: Buildroot configuration & Gateway Service (Phase 1 & 3)
-- `/proto`: Shared Protobuf schemas (The Data Contract)
-- `/security`: Root CA and Infrastructure keys
-- `/docs`: Detailed implementation guides and study notes
+- [/firmware](firmware/esp32/esp32-sensor-node) : ESP32-sensor-node ([Phase 2 Implementation](docs/phase-2-edge.md))
+- [/gateway](gateway-os) : Buildroot configuration ([Phase 1 Implementation](docs/phase-1-gateway-os.md))
+- [/proto](proto) : Shared Protobuf schemas (The Data Contract)
+- [/security](security) : Private PKI and Infrastructure keys
+- [/docs](docs) : [Gateway Service Design](docs/phase-3-gateway-service.md)
 
 ## Engineering Milestones
 - **Dec 2025:** Established Private PKI and signed Gateway certificates.
