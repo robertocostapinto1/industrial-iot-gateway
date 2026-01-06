@@ -1,58 +1,60 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <csignal>
+#include <atomic>
 #include "mqtt_wrapper.hpp"
 #include "safe_queue.hpp"
 #include "sensor_data.pb.h"
 
-int main() {
-    std::cout << "=== Industrial Gateway: Multi-threaded Ingestion Engine ===" << std::endl;
+// Use an atomic boolean to handle clean shutdown via Linux signals
+std::atomic<bool> running{true};
 
-    // 1. Shared Thread-Safe Queue
+void signal_handler(int signal) {
+    running = false;
+}
+
+int main() {
+    // Setup signal handling (for systemctl stop)
+    std::signal(SIGINT, signal_handler);
+    std::signal(SIGTERM, signal_handler);
+
+    std::cout << "=== Industrial Gateway: Daemon Ingestion Engine ===" << std::endl;
+
     industrial::SafeQueue telemetry_queue;
 
-    // 2. The Consumer (Worker) Thread
+    // 1. Start Worker Thread
     std::thread worker_thread([&telemetry_queue]() {
-        while (true) {
-            // pop() now returns a std::optional
+        while (running) {
             auto raw_data_opt = telemetry_queue.pop();
-            
-            // If the optional is empty, it means the queue was aborted
-            if (!raw_data_opt.has_value()) {
-                std::cout << "[WORKER] Shutdown signal received. Exiting..." << std::endl;
-                break; 
-            }
+            if (!raw_data_opt.has_value()) break;
 
-            // Extract the string from the optional
-            std::string raw_data = std::move(raw_data_opt.value());
-            
             industrial::SensorData msg;
-            if (msg.ParseFromString(raw_data)) {
+            if (msg.ParseFromString(raw_data_opt.value())) {
                 std::cout << "[WORKER] Ingested -> Node: " << msg.device_id() 
-                          << " | Temp: " << msg.temperature() << "C" 
-                          << " | Uptime: " << msg.uptime_ms() << "ms" << std::endl;
-            } else {
-                std::cerr << "[WORKER] Deserialization failed!" << std::endl;
+                          << " | Temp: " << msg.temperature() << "C" << std::endl;
             }
         }
+        std::cout << "[WORKER] Thread exiting..." << std::endl;
     });
 
-    // 3. Initialize MQTT via RAII
-    // Note: We pass the queue by reference so the MQTT thread can push to it
+    // 2. Start MQTT (RAII)
     const std::string BROKER_ADDR = "ssl://localhost:8883";
-    industrial::MqttWrapper mqtt_handler(BROKER_ADDR, "gateway_main", telemetry_queue);
+    industrial::MqttWrapper mqtt_handler(BROKER_ADDR, "gateway_daemon", telemetry_queue);
+    
+    if (mqtt_handler.connect("/etc/mosquitto/certs/ca.crt")) {
+        std::cout << "[MAIN] Connected to broker. Service ready." << std::endl;
+    }
 
-    // In production, this would use the baked-in RootFS path
-    mqtt_handler.connect("/etc/mosquitto/certs/ca.crt");
+    // 3. Keep Main Alive without std::cin
+    while (running) {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
 
-    std::cout << "[MAIN] Gateway logic active. Monitoring industrial/telemetry/#" << std::endl;
-    std::cout << "Press Enter to shut down the service..." << std::endl;
-    std::cin.get();
-
-    // 4. Graceful Shutdown Sequence
+    // 4. Graceful Shutdown
     std::cout << "[MAIN] Initiating shutdown..." << std::endl;
-    telemetry_queue.abort(); // Signal the worker thread to stop
-    worker_thread.join();    // Wait for worker to finish current task
+    telemetry_queue.abort();
+    if (worker_thread.joinable()) worker_thread.join();
 
     return 0;
 }
