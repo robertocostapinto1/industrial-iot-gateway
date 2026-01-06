@@ -14,9 +14,9 @@ extern "C" void app_main(void) {
 
     // 1. Initialize WiFi (RAII)
     industrial::WifiManager wifi("Foco", "Foco2020-116363");
-    
+
     // 2. MQTTS RAII (Pointing to Gateway - real IP handled in Phase 3)
-    industrial::MqttManager mqtt("mqtts://192.168.1.100:8883", (const char*)ca_cert_pem_start);
+    industrial::MqttManager mqtt("mqtts://192.168.68.104:8883", (const char*)ca_cert_pem_start);
 
     if (wifi.connect()) {
         mqtt.start();
@@ -29,7 +29,7 @@ extern "C" void app_main(void) {
             );
 
             // 4. Secure Publish
-            if (mqtt.publish("industrial/sensors/data", payload)) {
+            if (mqtt.publish("industrial/telemetry/sensor", payload)) {
                 ESP_LOGI("MAIN", "Telemetry securely published! (%zu bytes)", payload.size());
             } else {
                 ESP_LOGW("MAIN", "MQTTS Offline - Attempting Reconnect...");

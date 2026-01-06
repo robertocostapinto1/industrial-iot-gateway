@@ -8,11 +8,13 @@ namespace industrial {
 MqttManager::MqttManager(const std::string& uri, const char* ca_cert) {
     esp_mqtt_client_config_t mqtt_cfg = {};
     mqtt_cfg.broker.address.uri = uri.c_str();
-    
+
     // THE SECURITY CORE:
     // This tells the MQTTS client to use the CA certificate to verify the server.
     mqtt_cfg.broker.verification.certificate = ca_cert;
-    
+
+    mqtt_cfg.broker.verification.skip_cert_common_name_check = true;
+
     // Requirement for TLS: Ensure the client task has enough stack for the handshake
     mqtt_cfg.task.stack_size = 8192; 
 
